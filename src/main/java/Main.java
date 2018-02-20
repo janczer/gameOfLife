@@ -29,15 +29,22 @@ public class Main {
     Integer a = 10;
     Integer b = 10;
 
-    Board board = new Board(a, b, new Cell(5, 5), new Cell(4, 6), new Cell(6, 6), new Cell(5, 4));
+    Board board = new Board(a, b,
+        new Cell(5, 5),
+        new Cell(5, 7),
+        new Cell(5, 8),
+        new Cell(4, 6),
+        new Cell(6, 6),
+        new Cell(5, 4)
+    );
 
-    for (int i = 0; i < 25; i++) {
+    for (int i = 0; i < 50; i++) {
       System.out.print("\033[H\033[2J");
       System.out.flush();
       System.out.printf("Step %d\n", i+1);
       System.out.println(board);
       board.nextGeneration();
-      TimeUnit.MILLISECONDS.sleep(350);
+      TimeUnit.MILLISECONDS.sleep(150);
     }
   }
 }

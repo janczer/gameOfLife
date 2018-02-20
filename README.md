@@ -1,3 +1,5 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 ## Game of life
 
 Console program represent Convey’s Game of Life.
@@ -7,9 +9,9 @@ Console program represent Convey’s Game of Life.
 ### Run
 
 ```text
-$ git clone https://github.com/janczer/gameoflife
-$ cd gameoflife/
-$ cd src/
+$ git clone https://github.com/janczer/gameOfLife
+$ cd gameOfLive/
+$ cd src/main/java/
 $ javac Main.java
 $ java Main
 ```

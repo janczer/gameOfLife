@@ -40,9 +40,6 @@ public class Cell {
 
   private Boolean liveNextGeneration = false;
 
-  public Cell() {
-  }
-
   public Cell(Integer x, Integer y) {
     this.x = x;
     this.y = y;
@@ -79,6 +76,7 @@ public class Cell {
 
   public void checkStatus() {
     Integer count = 0;
+
     for (Cell c : neighbors) {
       count += c.getLive() ? 1 : 0;
     }

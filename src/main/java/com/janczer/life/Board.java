@@ -65,7 +65,7 @@ public class Board {
     for (Cell cell : live) {
       Integer x = cell.getX();
       Integer y = cell.getY();
-      cells.get(a * (y - 1) + x - 1).setLive(true);
+      cells.get(calcNumberInRow(x - 1, y - 1)).setLive(true);
     }
 
     for (int i = 0; i < a * b; i++) {
@@ -73,39 +73,24 @@ public class Board {
       Integer x = c.getX() - 1;
       Integer y = c.getY() - 1;
 
-      Integer[] nn = new Integer[8];
+      Integer[][] nn = {
+          { 0,  1}, // up
+          {-1,  0}, // left
+          { 0, -1}, // down
+          { 1,  0}, // right
+          {-1,  1}, // up left
+          { 1,  1}, // up right
+          {-1, -1}, // down left
+          { 1, -1}, // down right
+      };
 
-      if (x - 1 >= 0) {
-        nn[0] = a * y + x - 1; // left
-      }
-      if (x + 1 < a) {
-        nn[1] = a * y + x + 1; // right
-      }
-      if (y - 1 >= 0) {
-        nn[2] = a * (y - 1) + x; // down
-      }
-      if (y + 1 < b) {
-        nn[3] = a * (y + 1) + x; // up
-      }
+      for (Integer[] pos : nn) {
+        Integer x2 = x + pos[0];
+        Integer y2 = y + pos[1];
 
-      if (y - 1 >= 0 && x - 1 >= 0) {
-        nn[4] = a * (y - 1) + x - 1; // left down
-      }
-      if (y + 1 < b && x - 1 >= 0) {
-        nn[5] = a * (y + 1) + x - 1; // left up
-      }
-
-      if (y - 1 >= 0 && x + 1 < a) {
-        nn[6] = a * (y - 1) + x + 1; // right down
-      }
-      if (y + 1 < b && x + 1 < a) {
-        nn[7] = a * (y + 1) + x + 1; // right up
-      }
-
-      for (Integer n : nn) {
-        if (n != null) {
-          c.addNeighbors(cells.get(n));
-        }
+        y2 = y2 < 0 ? y2 + b : y2;
+        Integer n = calcNumberInRow(x2, y2);
+        c.addNeighbors(cells.get(n));
       }
     }
   }
@@ -130,7 +115,8 @@ public class Board {
     }
     sb.append(getWrapperTop());
 
-    return sb.toString();
+    String t = sb.toString();
+    return t;
   }
 
   private String getWrapperTop() {
@@ -144,5 +130,13 @@ public class Board {
     }
 
     return sb.toString();
+  }
+
+  private Integer calcNumberInRow(Integer x, Integer y) {
+    return modulo(x, a) + modulo(y, b) * b;
+  }
+
+  private Integer modulo(Integer x, Integer m) {
+    return ((x % m) + m) % m;
   }
 }
